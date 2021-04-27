@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sunrise.dao.UserMapper">
+    <!--resultMap对列名和pojo属性名之间作一个映射关系。（高级映射，字段名称可以不一致，通过映射来实现-->
+    <resultMap id="UserMap" type="u1">
+        <!--Mysql数据库字段，对应实体类bean中的一个属性-->
+        <!--  <result column="id" property="id"/>
+              <result column="name" property="name"/>
+         -->
+        <result column="pwd" property="password"/>
+    </resultMap>
+
+    <select id="getUserById" parameterType="int" resultMap="UserMap">
+        SELECT * FROM USER WHERE ID=#{id}
+    </select>
+
+    <select id="getUserByLimit" parameterType="map" resultMap="UserMap">
+        SELECT * FROM USER LIMIT #{startIndex},#{pageSize}
+    </select>
+
+    <select id="getUserByRowBounds" parameterType="map" resultMap="UserMap">
+        SELECT * FROM USER USER
+    </select>
+</mapper>

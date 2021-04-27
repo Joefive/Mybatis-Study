@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.sunrise.dao.UserMapper">
+    <!--id绑定接口的方法，resultType数据返回类型pojo类的-->
+    <select id="getUserList" resultType="com.sunrise.pojo.User">
+        select * from user
+    </select>
+    <!--带参数查询-->
+    <select id="getUserById" parameterType="int" resultType="com.sunrise.pojo.User">
+        SELECT * FROM USER WHERE ID=#{id}
+    </select>
+    <!--插入操作-->
+    <insert id="addUser" parameterType="com.sunrise.pojo.User">
+        INSERT INTO USER (id,name,pwd)VALUES (#{id},#{name},#{pwd});
+    </insert>
+
+    <update id="updateUser" parameterType="com.sunrise.pojo.User">
+        UPDATE USER SET PWD=#{pwd} WHERE ID=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM USER WHERE ID=#{id}
+    </delete>
+
+    <insert id="addUserMap" parameterType="map">
+        INSERT INTO USER (id,name,pwd) VALUES (#{userId},#{userName},#{userPassWord});
+    </insert>
+
+    <update id="updateUserMap" parameterType="map">
+        UPDATE USER SET NAME=#{userName} WHERE ID=#{userId}
+    </update>
+
+    <select id="selectUserLike" parameterType="String" resultType="com.sunrise.pojo.User">
+        SELECT * FROM USER WHERE NAME LIKE #{value}
+    </select>
+</mapper>

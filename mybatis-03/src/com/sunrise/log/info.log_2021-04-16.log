@@ -1,0 +1,4 @@
+2021-04-16 17:53:16 下午 [Thread: main][ Class:dao.UserMapperTest >> Method: dao.UserMapperTest.testLog4j(UserMapperTest.java:30) ]
+INFO:进入info======
+2021-04-16 17:53:16 下午 [Thread: main][ Class:dao.UserMapperTest >> Method: dao.UserMapperTest.testLog4j(UserMapperTest.java:32) ]
+ERROR:进入ERROR======******=====

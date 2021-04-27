@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--核心配置文件-->
+<configuration>
+    <!--可以引入外部配置文件-->
+    <properties resource="db.properties"/>
+
+    <!--给对应的类使用别名
+    <typeAliases>
+        <typeAlias type="com.sunrise.pojo.User" alias="User"/>
+    </typeAliases>
+    -->
+    <!--根据包名来直接扫描bean文件，别名为首字母小写全名，可以在bean文件使用@Alias("hello")-->
+    <typeAliases>
+        <package name="com.sunrise.pojo"/>
+    </typeAliases>
+
+    <!--可以配置多套环境-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--每个配置文件需要在核心文件中注册-->
+    <mappers>
+        <!--<mapper resource="com/sunrise/dao/UserMapper.xml"/>-->
+        <mapper class="com.sunrise.dao.UserMapper"/>
+    </mappers>
+
+</configuration>
