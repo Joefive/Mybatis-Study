@@ -106,4 +106,24 @@ parameterType参数类型；
 <mapper resource="com/sunrise/dao/UserMapper.xml"/>
 配置文件的中分好需要转义，如果用MYSQL8需要增加时区
 <property name="url" value="jdbc:mysql://localhost:3307/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+#4.联合查询(一对多)
+```xml
+<mapper namespace="com.sunrise.dao.StudentMapper">
+    <select id="getStudent" resultMap="StudentJoinTeacher">
+       SELECT * FROM STUDENT
+    </select>
+    <resultMap id="StudentJoinTeacher" type="Student">
+        <result property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        <association property="teacher" column="tid" javaType="Teacher" select="getTeacher"/>
+    </resultMap>
+    <select id="getTeacher" resultType="Teacher">
+        SELECT * FROM TEACHER WHERE ID=#{id}
+    </select>
+</mapper>
+```
+#5.联合查询(多对一)
+
+
+
 
