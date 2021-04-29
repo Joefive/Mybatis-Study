@@ -106,7 +106,8 @@ parameterType参数类型；
 <mapper resource="com/sunrise/dao/UserMapper.xml"/>
 配置文件的中分好需要转义，如果用MYSQL8需要增加时区
 <property name="url" value="jdbc:mysql://localhost:3307/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
-#4.联合查询(一对多)
+#4.联合查询
+association
 ```xml
 <mapper namespace="com.sunrise.dao.StudentMapper">
     <select id="getStudent" resultMap="StudentJoinTeacher">
@@ -123,7 +124,23 @@ parameterType参数类型；
 </mapper>
 ```
 #5.联合查询(多对一)
+一对多使用collection
+```xml
+    <select id="getTeacher2" resultMap="TeacherStudent">
+        SELECT s.sid,s.sname,t.name,t.id FROM STUDENT S,TEACHER T WHERE S.tid =t.id and t.id=#{id}
+    </select>
 
+    <resultMap id="TeacherStudent" type="Teacher">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <!--oftype通常使用在泛型-->
+        <collection property="students" ofType="student">
+            <result property="sid" column="sid"/>
+            <result property="sname" column="sname"/>
+            <result property="tid" column="tid"/>
+        </collection>
+    </resultMap>
+```
 
 
 
