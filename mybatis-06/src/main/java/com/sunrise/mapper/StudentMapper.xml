@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sunrise.dao.StudentMapper">
-    <!--方法一-->
+    <!--方法一:子查询方式-->
     <select id="getStudent" resultMap="StudentJoinTeacher">
        SELECT * FROM STUDENT
     </select>
@@ -12,6 +12,7 @@
     <resultMap id="StudentJoinTeacher" type="Student">
         <result property="sid" column="sid"/>
         <result property="sname" column="sname"/>
+        <result property="tid" column="tid"/>
         <association property="teacher" column="tid" javaType="Teacher" select="getTeacher"/>
     </resultMap>
 
@@ -19,15 +20,17 @@
         SELECT * FROM TEACHER WHERE ID=#{id}
     </select>
 
-    <!--方法二：利用嵌套查询-->
+    <!--方法二：利用嵌套查询，按照嵌套结果处理-->
     <select id="getStudent2" resultMap="StudentJoinTeacher2">
-        SELECT A.sid,A.sname,A.tid,B.name as tname FROM STUDENT A LEFT JOIN TEACHER B ON A.tid=B.id
+        SELECT A.sid,A.sname,A.tid,B.id,B.name as tname FROM STUDENT A, TEACHER B WHERE A.tid=B.id
     </select>
 
     <resultMap id="StudentJoinTeacher2" type="Student">
         <result property="sid" column="sid"/>
         <result property="sname" column="sname"/>
+        <result property="tid" column="tid"/>
         <association property="teacher" javaType="Teacher">
+            <result property="id" column="id"/>
             <result property="name" column="tname"/>
         </association>
     </resultMap>

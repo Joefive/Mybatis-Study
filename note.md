@@ -141,6 +141,25 @@ association
         </collection>
     </resultMap>
 ```
+#6.多对一
+多对一使用collection标签，使用ofType属性(List集合中的属性类型，或者是泛型的约束)
+```xml
+    <select id="getTeacher2" resultMap="TeacherStudent">
+        SELECT s.sid,s.sname,t.id,t.name FROM STUDENT S,TEACHER T WHERE S.tid =t.id and t.id=#{id}
+    </select>
+
+    <resultMap id="TeacherStudent" type="Teacher">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <!--集合使用collection，ofType通常使用在泛型-->
+        <collection property="students" ofType="Student">
+            <result property="sid" column="sid"/>
+            <result property="sname" column="sname"/>
+            <result property="tid" column="tid"/>
+        </collection>
+    </resultMap>
+```
+
 
 
 

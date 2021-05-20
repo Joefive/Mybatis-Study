@@ -8,18 +8,33 @@
         SELECT * FROM TEACHER
     </select>
 
+    <!--方法一：使用嵌套方式-->
     <select id="getTeacher2" resultMap="TeacherStudent">
-        SELECT s.sid,s.sname,t.name,t.id FROM STUDENT S,TEACHER T WHERE S.tid =t.id and t.id=#{id}
+        SELECT s.sid,s.sname,t.id,t.name FROM STUDENT S,TEACHER T WHERE S.tid =t.id and t.id=#{id}
     </select>
 
     <resultMap id="TeacherStudent" type="Teacher">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
-        <!--oftype通常使用在泛型-->
-        <collection property="students" ofType="student">
+        <!--集合使用collection，ofType通常使用在泛型-->
+        <collection property="students" ofType="Student">
             <result property="sid" column="sid"/>
             <result property="sname" column="sname"/>
             <result property="tid" column="tid"/>
         </collection>
     </resultMap>
+
+    <!--方法二：使用子查询方式-->
+    <select id="getTeacher3" resultMap="TeacherStudentMap">
+        SELECT * FROM TEACHER WHERE ID=#{tid};
+    </select>
+
+    <resultMap id="TeacherStudentMap" type="Teacher">
+        <collection property="students" javaType="ArrayList" ofType="Student" select="TeacherNameByStudent" column="id"/>
+    </resultMap>
+
+    <select id="TeacherNameByStudent" resultType="Student">
+        SELECT * FROM STUDENT WHERE TID=#{tid}
+    </select>
+
 </mapper>

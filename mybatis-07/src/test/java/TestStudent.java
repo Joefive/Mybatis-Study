@@ -25,6 +25,9 @@ public class TestStudent {
         }
     }
 
+    /**
+     * 使用嵌套方式进行查询
+     */
     @Test
     public void getTeacher2() {
         SqlSession sqlSession = MybatisUtils.getSqlSession();
@@ -32,6 +35,23 @@ public class TestStudent {
             TeacherMapper mapper = sqlSession.getMapper(TeacherMapper.class);
             Teacher teacher2 = mapper.getTeacher2(1);
             System.out.println(teacher2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    /**
+     * 使用子查询方式进行查询
+     */
+    @Test
+    public void getTeacher3() {
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        try {
+            TeacherMapper mapper = sqlSession.getMapper(TeacherMapper.class);
+            Teacher teacher3 = mapper.getTeacher3(2);
+            System.out.println(teacher3);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

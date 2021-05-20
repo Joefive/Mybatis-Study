@@ -9,6 +9,7 @@
 
     <settings>
         <setting name="logImpl" value="LOG4J"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
     <typeAliases>
@@ -30,7 +31,6 @@
 
     <!--绑定映射文件-->
     <mappers>
-        <mapper resource="com/sunrise/mapper/StudentMapper.xml"/>
-        <mapper resource="com/sunrise/mapper/TeacherMapper.xml"/>
+        <mapper resource="com/sunrise/mapper/BlogMapper.xml"/>
     </mappers>
 </configuration>

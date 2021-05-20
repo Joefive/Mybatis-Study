@@ -23,7 +23,7 @@ public class TestTeacher {
             sqlSession.close();
         }
     }
-    //对应方法1
+    //对应方法1：采用子查询模式处理
     @Test
     public void StudentJoinTeacher() {
         SqlSession sqlSession = MybatisUtils.getSqlSession();
@@ -39,15 +39,15 @@ public class TestTeacher {
             sqlSession.close();
         }
     }
-    //对应方法2
+    //对应方法2:采用结果嵌套模式处理
     @Test
     public void StudentJoinTeacher2() {
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         try {
             StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
-            List<Student> student = mapper.getStudent2();
-            for (Student student1 : student) {
-                System.out.println(student1);
+            List<Student> student2 = mapper.getStudent2();
+            for (Student student : student2) {
+                System.out.println(student);
             }
         } catch (Exception e) {
             e.printStackTrace();

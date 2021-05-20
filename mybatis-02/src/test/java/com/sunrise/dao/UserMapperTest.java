@@ -11,7 +11,7 @@ public class UserMapperTest {
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         try {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            User user = mapper.getUserById(5);
+            User user = mapper.getUserById(3);
             System.out.println(user);
         } catch (Exception e) {
             e.printStackTrace();
